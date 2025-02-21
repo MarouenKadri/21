@@ -12,8 +12,11 @@ import {
   Avatar,
   IconButton,
   Modal,
+  useTheme,
 } from "@mui/material";
 import { ArrowBack, ArrowForward, Close } from "@mui/icons-material";
+import { Accordion, AccordionSummary, AccordionDetails } from "@mui/material";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 const defaultImage = "https://via.placeholder.com/300";
 
@@ -30,8 +33,9 @@ const missionsData = [
       { name: "Marie Curie", avatar: "https://randomuser.me/api/portraits/women/45.jpg" },
       { name: "Albert Einstein", avatar: "https://randomuser.me/api/portraits/men/46.jpg" },
     ],
+    details: "Description détaillée de la mission de cours d'informatique.",
   },
-  ...Array.from({ length: 10 }, (_, i) => ({
+  ...Array.from({ length: 2 }, (_, i) => ({
     id: String(i + 2),
     title: `Mission ${i + 2}`,
     date: "Date aléatoire",
@@ -41,10 +45,13 @@ const missionsData = [
     clients: [
       { name: "Client aléatoire", avatar: "https://randomuser.me/api/portraits/men/1.jpg" },
     ],
+    details: "Description détaillée de la mission.",
   })),
 ];
 
 const OngoingRequests = ({ missionsData, handleManageMission, imageIndex, handleNextImage, handlePrevImage, handleImageClick }) => {
+  const theme = useTheme();
+
   return (
     <Grid container spacing={3}>
       {missionsData.map((mission) => (
@@ -89,6 +96,9 @@ const OngoingRequests = ({ missionsData, handleManageMission, imageIndex, handle
                   width: { xs: "100%", md: "35%" },
                   position: "relative",
                   cursor: "pointer",
+                  "&:hover img": {
+                    transform: "scale(1.1)",
+                  },
                 }}
                 onClick={() => handleImageClick(mission)}
               >
@@ -106,7 +116,7 @@ const OngoingRequests = ({ missionsData, handleManageMission, imageIndex, handle
                   height="200"
                   image={mission.images[imageIndex[mission.id]] || defaultImage}
                   alt={mission.title}
-                  sx={{ width: "100%", borderRadius: 2 }}
+                  sx={{ width: "100%", borderRadius: 2, transition: "transform 0.3s" }}
                 />
                 <IconButton
                   onClick={(e) => {
@@ -154,8 +164,31 @@ const OngoingRequests = ({ missionsData, handleManageMission, imageIndex, handle
                   ))}
                 </Box>
 
+                <Accordion sx={{ mt: 2 }}>
+                  <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                    <Typography variant="h6" sx={{ fontWeight: "bold" }}>Détails de la mission</Typography>
+                  </AccordionSummary>
+                  <AccordionDetails>
+                    <Typography><strong>Description:</strong> {mission.details}</Typography>
+                  </AccordionDetails>
+                </Accordion>
+
                 <Box sx={{ display: "flex", justifyContent: "flex-end", mt: 2 }}>
-                  <Button variant="contained" color="primary" onClick={() => handleManageMission(mission)}>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={() => handleManageMission(mission)}
+                    sx={{
+                      borderRadius: 2,
+                      textTransform: "none",
+                      fontWeight: "bold",
+                      px: 4,
+                      py: 1,
+                      "&:hover": {
+                        backgroundColor: theme.palette.primary.dark,
+                      },
+                    }}
+                  >
                     Gérer
                   </Button>
                 </Box>
@@ -207,17 +240,28 @@ const ReferralPage = () => {
 
   return (
     <Container maxWidth="xl" sx={{ mt: 4 }}>
-      {/* Onglets en haut de la page */}
       <Tabs
         value={tabIndex}
         onChange={(event, newIndex) => setTabIndex(newIndex)}
         centered
+        sx={{
+          "& .MuiTabs-indicator": {
+            backgroundColor: "primary.main",
+            height: 3,
+          },
+          "& .MuiTab-root": {
+            textTransform: "none",
+            fontWeight: "bold",
+            "&.Mui-selected": {
+              color: "primary.main",
+            },
+          },
+        }}
       >
         <Tab label="Missions en cours" />
         <Tab label="Missions terminées" />
       </Tabs>
 
-      {/* Contenu principal */}
       <Box sx={{ mt: 3 }}>
         {tabIndex === 0 ? (
           <OngoingRequests
@@ -235,7 +279,6 @@ const ReferralPage = () => {
         )}
       </Box>
 
-      {/* Pop-up pour afficher les images en grand */}
       <Modal
         open={Boolean(enlargedImage)}
         onClose={handleCloseModal}

@@ -4,18 +4,26 @@ import { ArrowBackIos as ArrowBackIosIcon, ArrowForwardIos as ArrowForwardIosIco
 
 const CATEGORIES = [
   { name: "Ménage", icon: "🧹" },
+  { name: "Aide à domicile", icon: "🔥" },
   { name: "Déménagement", icon: "🛆" },
   { name: "Jardinage", icon: "🌱" },
-  { name: "Mécanique", icon: "🔧" },
-  { name: "Maçonnerie", icon: "🧱" },
-  { name: "Plomberie", icon: "🚰" },
-  { name: "Électricité", icon: "⚡" },
-  { name: "Cours d’informatique", icon: "💻" },
-  { name: "Carrosserie", icon: "🚗" },  
+  { name: "Bricolage", icon: "🔧" },
+  { name: "Garde d'enfants", icon: "🧱" },
+  { name: "Garde d'animaux", icon: "🚰" },
+  { name: "Informatique", icon: "💻" },
+  { name: "Courses et livraisons", icon: "💻" },      
+  { name: "Restauration", icon: "💻" }, 
+  { name: "Événementiel & Animation", icon: "🎉" },    
+
+  { name: "Mécanique", icon: "🚗" },  
+  { name: "Carrosserie", icon: "🚗" },
+  { name: "Maconerie", icon: "❄️" },  
+  { name: "Peinture ", icon: "🎉" },
   { name: "Chauffage", icon: "🔥" }, 
   { name: "Climatisation", icon: "❄️" }, 
-  { name: "Garde d’animaux", icon: "🐶" }, 
-  { name: "Événementiel & Animation", icon: "🎉" },    
+  
+  { name: "Électricité", icon: "⚡" },
+    
 ];
 
 const CategoryCard = styled(Paper)(({ theme }) => ({
@@ -43,7 +51,7 @@ const CategoryCard = styled(Paper)(({ theme }) => ({
 const CategorySlider = () => {
   const theme = useTheme();
   const [startIndex, setStartIndex] = useState(0);
-  const [visibleCount, setVisibleCount] = useState(5);
+  const [visibleCount, setVisibleCount] = useState(8);
 
   useEffect(() => {
     const updateVisibleCount = () => {
@@ -53,7 +61,7 @@ const CategorySlider = () => {
       } else if (width < 960) {
         setVisibleCount(4);
       } else {
-        setVisibleCount(5);
+        setVisibleCount(8);
       }
     };
     updateVisibleCount();

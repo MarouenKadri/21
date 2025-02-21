@@ -9,6 +9,7 @@ import FreelancerProfile from "../components/FreelancerProfile";
 import CategorySlider from "../components/CategorySlider";
 import LoginForm from "../components/LoginForm";
 import SignupForm from "../components/SignupForm";
+import CoachList from "../CoachList";
 
 const COLORS = {
   primary: "#FF6B6B",
@@ -62,74 +63,7 @@ const Home = () => {
         </Toolbar>
       </AppBar>
 
-      {/* Search Section */}
-      <Container maxWidth="md" sx={{ py: 8, textAlign: "center" }}>
-        <Typography variant="h3" fontWeight="bold" gutterBottom>
-          {isFreelancer ? "Trouvez des missions" : "Trouvez un prestataire"}
-        </Typography>
-
-        <Paper
-          component="form"
-          sx={{
-            p: 2,
-            borderRadius: 6,
-            display: "flex",
-            flexDirection: isMobile ? "column" : "row",
-            gap: isMobile ? 2 : 1.5,
-            boxShadow: 4,
-            backgroundColor: COLORS.background,
-            alignItems: "center",
-            justifyContent: "space-between",
-          }}
-          onSubmit={(e) => e.preventDefault()}
-        >
-          <TextField
-            fullWidth
-            variant="outlined"
-            placeholder={isFreelancer ? "Ex: Développement Web, Graphisme..." : "Ex: Cours de Maths, Musique..."}
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <SearchIcon color="action" />
-                </InputAdornment>
-              ),
-            }}
-            sx={textFieldStyles}
-          />
-
-          <TextField
-            fullWidth
-            variant="outlined"
-            placeholder="Saisissez une ville ou 'Autour de moi'"
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <LocationOnIcon color="action" />
-                </InputAdornment>
-              ),
-            }}
-            sx={textFieldStyles}
-          />
-
-          <Button
-            type="submit"
-            variant="contained"
-            sx={{
-              borderRadius: 20,
-              fontWeight: "bold",
-              textTransform: "none",
-              bgcolor: COLORS.primary,
-              color: "white",
-              minWidth: 150,
-              height: "100%",
-              transition: "0.3s",
-              "&:hover": { bgcolor: COLORS.hover, transform: "scale(1.05)" },
-            }}
-          >
-            <span role="img" aria-hidden="true">🔍</span> Rechercher
-          </Button>
-        </Paper>
-      </Container>
+      
 
       {/* Category Section */}
       <Container maxWidth="xl" sx={{ display: "flex", justifyContent: "center", py: 2 }}>
@@ -140,7 +74,7 @@ const Home = () => {
 
       {/* Missions or Freelancer Profiles */}
       <Container maxWidth="lg" sx={{ py: 4 }}>
-        {isFreelancer ? <MissionList /> : <FreelancerProfile />}
+        {isFreelancer ? <MissionList /> : <CoachList />}
       </Container>
 
       {/* Authentication Dialogs */}

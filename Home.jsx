@@ -9,13 +9,38 @@ import FreelancerProfile from "../components/FreelancerProfile";
 import CategorySlider from "../components/CategorySlider";
 import LoginForm from "../components/LoginForm";
 import SignupForm from "../components/SignupForm";
-import CoachList from "../CoachList";
+import CoachList from "../CoachList";  
+import Carousel from "../Carousel";   
+import image1 from "../image1.png" ; 
+import image2 from "../image2.jpg" ; 
+
 
 const COLORS = {
   primary: "#FF6B6B",
   hover: "#E55A5A",
   background: "#F9FAFB",
-};
+};  
+const slidesPage1 = [
+  {
+    image: image1,
+    title: "Working at University of Copenhagen",
+  },
+  {
+    image: image1,
+    title: "Grow Your Career with Us",
+  },    
+  {
+    image: image2,
+    title: "Grow Your Career with Us",
+  },   
+  {
+    image: image2,
+    title: "Grow Your Career with Us",
+  },   
+
+
+
+];
 
 const Home = () => {
   const theme = useTheme();
@@ -68,7 +93,14 @@ const Home = () => {
       {/* Category Section */}
       <Container maxWidth="xl" sx={{ display: "flex", justifyContent: "center", py: 2 }}>
         <Box sx={{ maxWidth: isMobile ? "100%" : "80%", width: "100%" }}>
-          <CategorySlider />
+          {/* <CategorySlider /> */}  
+           <Carousel
+    width="200%"
+    height="300px"
+    autoPlayInitial={true}
+    showTitle={true}
+    autoplaySpeed={5000}
+    slides={slidesPage1}  />
         </Box>
       </Container>
 

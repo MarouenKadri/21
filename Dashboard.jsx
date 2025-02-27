@@ -5,7 +5,7 @@ import {
 } from "@mui/material";
 import { AccountCircle, Add as AddIcon, Home, Assignment, Chat, Payment, Star } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
-import MissionList from "../components/MissionList";
+import MissionList from "../components/MissionCard";
 import FreelancerProfile from "../components/FreelancerProfile";
 import CategorySlider from "../components/CategorySlider";
 import CreateMission from "./CreateMission";

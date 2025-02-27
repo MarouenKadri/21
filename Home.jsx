@@ -4,13 +4,13 @@ import {
   InputAdornment, Switch, useMediaQuery, useTheme, Paper, Dialog, DialogTitle, DialogContent, IconButton
 } from "@mui/material";
 import { Close as CloseIcon, Search as SearchIcon, LocationOn as LocationOnIcon } from "@mui/icons-material";
-import MissionList from "../components/MissionList";
+import MissionList from "../components/MissionCard";
 import FreelancerProfile from "../components/FreelancerProfile";
 import CategorySlider from "../components/CategorySlider";
 import LoginForm from "../components/LoginForm";
 import SignupForm from "../components/SignupForm";
-import CoachList from "../CoachList";  
-import Carousel from "../Carousel";   
+import CoachList from "../components/CoachList";  
+import Carousel from "../components/Carousel";   
 import image1 from "../image1.png" ; 
 import image2 from "../image2.jpg" ; 
 

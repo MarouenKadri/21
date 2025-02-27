@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { Box, Grid } from "@mui/material";
 import CoachCard from "./CoachCard"; // Assurez-vous que ce chemin est correct
-import FilterBar from "./FilterBar"; // Importez le composant FilterBar  
+import FilterBar from "../FilterBar"; // Importez le composant FilterBar  
 import image1 from "./image1.png" ; 
 import image2 from "./image2.jpg";
 
@@ -97,7 +97,7 @@ const CoachList = () => {
   return (
     <Box sx={{ p: 3 }}>
       {/* Barre de filtres */}
-      <FilterBar filters={filters} setFilters={setFilters} />
+      {/* <FilterBar filters={filters} setFilters={setFilters} /> */}
 
       {/* Grille des cartes CoachCard */}
       <Grid container spacing={3} justifyContent="center">

@@ -1,425 +1,217 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Card,
   CardContent,
   Typography,
-  Avatar,
-  Chip,
+  Button,
   Grid,
   Rating,
   Box,
-  Button,
+  Divider,
+  Paper,
+  Chip,
+  LinearProgress,
   useTheme,
+  Avatar,
 } from "@mui/material";
-import StarIcon from "@mui/icons-material/Star";
-import LocationOnIcon from "@mui/icons-material/LocationOn";
-import EuroIcon from "@mui/icons-material/Euro";
-import WorkIcon from "@mui/icons-material/Work";
-import CleaningServicesIcon from "@mui/icons-material/CleaningServices";
-import YardIcon from "@mui/icons-material/Yard";
-import PlumbingIcon from "@mui/icons-material/Plumbing";
-import BuildIcon from "@mui/icons-material/Build";
-import { keyframes } from "@emotion/react";
+import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import Carousel from "react-material-ui-carousel";
+import "leaflet/dist/leaflet.css";
+import VerifiedIcon from "@mui/icons-material/Verified";
+import AccessTimeIcon from "@mui/icons-material/AccessTime";
+import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
+import WorkOutlineIcon from "@mui/icons-material/WorkOutline";
+const [visibleReviews, setVisibleReviews] = useState(3); // Affiche 3 avis par défaut
 
-// Animation pour le bouton
-const pulseAnimation = keyframes`
-  0% { transform: scale(1); }
-  50% { transform: scale(1.05); }
-  100% { transform: scale(1); }
-`;
+const loadMoreReviews = () => {
+  setVisibleReviews((prev) => prev + 3); // Charge 3 avis supplémentaires
+};
 
-// Animation d'apparition
-const fadeIn = keyframes`
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
-`;
+<Box sx={{ maxHeight: 400, overflowY: "auto", pr: 1 }}>
+  {freelancer.reviews.slice(0, visibleReviews).map((review, index) => (
+    <Paper key={index} elevation={2} sx={{ mt: 2, p: 3, borderRadius: 3 }}>
+      {/* Contenu de l'avis */}
+    </Paper>
+  ))}
+  {visibleReviews < freelancer.reviews.length && (
+    <Button variant="outlined" fullWidth onClick={loadMoreReviews} sx={{ mt: 2 }}>
+      Voir plus d'avis
+    </Button>
+  )}
+</Box>
 
 const freelancer = {
-  name: "Jean Martin",
+  name: "Nicolas",
   avatar: "https://via.placeholder.com/150",
-  badges: ["Expérimenté", "Certifié", "Fiable"],
-  rating: 4.8,
-  reviews: 45,
-  earnings: "15,000€",
-  completedMissions: 150,
+  jobTitle: "Déménageur",
+  location: "1 an chez Yoojo",
+  rate: "16 €/h",
+  reviewsCount: 18,
+  rating: 5.0,
+  latitude: 48.8566,
+  longitude: 2.3522,
+  punctuality: 90,
+  communication: 80,
+  professionalism: 96,
+  missionsCompleted: 50,
+  amountEarned: "12 340 €",
   level: "Professionnel",
-  location: "Lyon, France",
-  bio: "Je suis un professionnel polyvalent spécialisé dans le ménage, le jardinage, la plomberie et le bricolage. Avec plus de 10 ans d'expérience, je m'engage à fournir un travail de qualité et à répondre à vos besoins avec efficacité et sérieux.",
-  services: ["Ménage", "Jardinage", "Plomberie", "Bricolage"],
-  skills: ["Nettoyage approfondi", "Taille de haies", "Réparation de fuites", "Montage de meubles"],
-  testimonials: [
+  isVerified: true,
+  projects: [
+    "https://via.placeholder.com/400",
+    "https://via.placeholder.com/400",
+    "https://via.placeholder.com/400",
+  ],
+  reviews: [
     {
-      text: "Jean a fait un excellent travail de nettoyage. Ma maison n'a jamais été aussi propre ! Je le recommande vivement.",
-      author: "Marie Dupont",
+      name: "Laura",
       avatar: "https://via.placeholder.com/50",
+      date: "Il y a 5 mois",
+      rating: 5,
+      text: "Très bon travail.",
+      service: "Déplacer de l'électroménager",
     },
     {
-      text: "Un jardinier très compétent et attentionné. Mon jardin est magnifique grâce à lui !",
-      author: "Pierre Leroy",
+      name: "Aurélien",
       avatar: "https://via.placeholder.com/50",
+      date: "Il y a 3 mois",
+      rating: 5,
+      text: "Très bien passé, je recommande.",
+      service: "Enlèvement de déchets verts",
+    },  
+    {
+      name: "Aurélien",
+      avatar: "https://via.placeholder.com/50",
+      date: "Il y a 3 mois",
+      rating: 5,
+      text: "Très bien passé, je recommande.",
+      service: "Enlèvement de déchets verts",
+    },  
+
+    {
+      name: "Aurélien",
+      avatar: "https://via.placeholder.com/50",
+      date: "Il y a 3 mois",
+      rating: 5,
+      text: "Très bien passé, je recommande.",
+      service: "Enlèvement de déchets verts",
+    },  
+
+
+
+
+
+  ],
+  education: [
+    {
+      institution: "Université Paris-Saclay",
+      degree: "Licence en Logistique",
+      year: "2020",
+    },
+    {
+      institution: "Certificat Yoojo",
+      degree: "Déménagement Professionnel",
+      year: "2021",
     },
   ],
-  availability: "Actuellement disponible pour de nouvelles missions.",
-  works: [
-    {
-      title: "Nettoyage complet d'une maison",
-      description: "Nettoyage approfondi d'une maison de 150m².",
-      image: "https://via.placeholder.com/300x200?text=Nettoyage",
-    },
-    {
-      title: "Taille de haies et entretien de jardin",
-      description: "Taille de haies et entretien d'un jardin de 500m².",
-      image: "https://via.placeholder.com/300x200?text=Jardinage",
-    },
-    {
-      title: "Réparation de fuite d'eau",
-      description: "Réparation d'une fuite d'eau sous un évier.",
-      image: "https://via.placeholder.com/300x200?text=Plomberie",
-    },
-  ],
+  languages: ["Français", "Anglais"],
+  skills: ["Déménagement résidentiel", "Manutention lourde", "Logistique", "Conduite de camion"],
+  about: "Je suis un déménageur professionnel avec plus de 5 ans d'expérience. Je propose des services de qualité pour vos déménagements résidentiels et professionnels. Polyvalent et fiable, je m'adapte à vos besoins pour garantir une prestation sans stress.",
 };
 
 const FreelancerProfile = () => {
   const theme = useTheme();
+  const [missionsCount, setMissionsCount] = useState(0);
+
+  useEffect(() => {
+    if (missionsCount < freelancer.missionsCompleted) {
+      const timer = setTimeout(() => {
+        setMissionsCount(missionsCount + 1);
+      }, 50);
+      return () => clearTimeout(timer);
+    }
+  }, [missionsCount]);
 
   return (
-    <Card
+    <Box
       sx={{
-        maxWidth: 800,
-        margin: "auto",
-        mt: 4,
-        p: 3,
-        borderRadius: 5,
-        boxShadow: 3,
-        bgcolor: theme.palette.background.paper,
-        transition: "transform 0.3s, box-shadow 0.3s",
-        "&:hover": {
-          transform: "translateY(-5px)",
-          boxShadow: 6,
-        },
+        height: "100vh",
+        display: "flex",
+        flexDirection: "column",
+        overflow: "hidden",
+        bgcolor: theme.palette.background.default,
       }}
     >
-      <CardContent>
-        {/* Section Avatar et Informations */}
-        <Grid container spacing={3} alignItems="center">
-          <Grid item>
-            <Avatar
-              src={freelancer.avatar}
-              sx={{
-                width: 100,
-                height: 100,
-                border: "3px solid",
-                borderColor: theme.palette.primary.main,
-                boxShadow: 3,
-              }}
-            />
-          </Grid>
-          <Grid item xs>
-            <Typography
-              variant="h4"
-              fontWeight="bold"
-              color="primary"
-              gutterBottom
-              sx={{ fontFamily: "Arial, sans-serif" }}
-            >
-              {freelancer.name}
+     <Grid item xs={12} sm={12} md={3} sx={{ height: "80%", overflowY: "auto" }}>
+  <Card sx={{ height: "100%", boxShadow: 1, borderRadius: 0, bgcolor: "background.paper" }}>
+    <CardContent>
+      <Typography variant="h6" fontWeight="bold" mb={2}>
+        Statistiques
+      </Typography>
+      {/* Sliders pour les statistiques */}
+      {[
+        { label: "Ponctualité", value: freelancer.punctuality, icon: <AccessTimeIcon /> },
+        { label: "Communication", value: freelancer.communication, icon: <ChatBubbleOutlineIcon /> },
+        { label: "Professionnalisme", value: freelancer.professionalism, icon: <WorkOutlineIcon /> },
+      ].map((stat, index) => (
+        <Box key={index} mb={2}>
+          <Box display="flex" alignItems="center" mb={1}>
+            {stat.icon}
+            <Typography variant="body2" fontWeight="bold" ml={1}>
+              {stat.label} ({stat.value}%)
             </Typography>
-            <Typography
-              variant="body1"
-              color="textSecondary"
-              fontStyle="italic"
-              gutterBottom
-              sx={{ fontFamily: "Arial, sans-serif" }}
-            >
-              {freelancer.level}
-            </Typography>
-            <Box
-              display="flex"
-              alignItems="center"
-              mt={1}
-              bgcolor="#f1f1f1"
-              p={1}
-              borderRadius={2}
-            >
-              <LocationOnIcon fontSize="small" color="primary" sx={{ mr: 1 }} />
-              <Typography
-                variant="body2"
-                color="textPrimary"
-                sx={{ fontFamily: "Arial, sans-serif", fontWeight: "bold" }}
-              >
-                {freelancer.location}
-              </Typography>
-            </Box>
-          </Grid>
-        </Grid>
-
-        {/* Section Présentation */}
-        <Box mt={4}>
-          <Typography
-            variant="body1"
-            color="textSecondary"
-            sx={{ fontFamily: "Arial, sans-serif", lineHeight: 1.6 }}
-          >
-            {freelancer.bio}
-          </Typography>
+          </Box>
+          <LinearProgress
+            variant="determinate"
+            value={stat.value}
+            sx={{ height: 10, borderRadius: 5, transition: "width 0.5s ease-in-out" }}
+            color="primary"
+          />
         </Box>
+      ))}
 
-        {/* Badges */}
-        <Grid container spacing={1} mt={2}>
-          {freelancer.badges.map((badge, index) => (
-            <Grid item key={index}>
-              <Chip
-                icon={<BuildIcon />}
-                label={badge}
-                color="primary"
-                variant="outlined"
-                sx={{ borderRadius: 2, fontWeight: "bold", fontFamily: "Arial, sans-serif" }}
-              />
+      {/* Compteur animé pour les missions réalisées */}
+      <Box mt={2} display="flex" alignItems="center">
+        <Typography variant="body2" fontWeight="bold" sx={{ flexGrow: 1 }}>
+          Missions Réalisées
+        </Typography>
+        <Typography variant="h5" fontWeight="bold" color="primary">
+          {missionsCount}
+        </Typography>
+      </Box>
+
+      <Divider sx={{ my: 2 }} />
+      <Typography variant="h6" fontWeight="bold" mb={2}>
+        Avis des clients
+      </Typography>
+      {/* Section des avis avec défilement */}
+      <Box sx={{ maxHeight: 400, overflowY: "auto", pr: 1 }}>
+        {freelancer.reviews.map((review, index) => (
+          <Paper key={index} elevation={2} sx={{ mt: 2, p: 3, borderRadius: 3 }}>
+            <Grid container spacing={2} alignItems="center">
+              <Grid item>
+                <Avatar src={review.avatar} sx={{ width: 50, height: 50 }} />
+              </Grid>
+              <Grid item xs>
+                <Typography variant="subtitle1" fontWeight="bold">
+                  {review.name} - {review.date}
+                </Typography>
+                <Rating value={review.rating} precision={0.5} readOnly />
+                <Typography variant="body2" mt={1}>
+                  {review.text}
+                </Typography>
+                <Typography variant="caption" color="textSecondary">
+                  {review.service}
+                </Typography>
+              </Grid>
             </Grid>
-          ))}
-        </Grid>
-
-        {/* Section Services */}
-        <Box mt={4}>
-          <Typography
-            variant="h5"
-            fontWeight="bold"
-            color="primary"
-            gutterBottom
-            sx={{ fontFamily: "Arial, sans-serif" }}
-          >
-            Services Proposés
-          </Typography>
-          <Grid container spacing={2}>
-            {freelancer.services.map((service, index) => (
-              <Grid item key={index}>
-                <Chip
-                  icon={
-                    service === "Ménage" ? (
-                      <CleaningServicesIcon />
-                    ) : service === "Jardinage" ? (
-                      <YardIcon />
-                    ) : service === "Plomberie" ? (
-                      <PlumbingIcon />
-                    ) : (
-                      <BuildIcon />
-                    )
-                  }
-                  label={service}
-                  color="primary"
-                  variant="outlined"
-                  sx={{ borderRadius: 2, fontWeight: "bold", fontFamily: "Arial, sans-serif" }}
-                />
-              </Grid>
-            ))}
-          </Grid>
-        </Box>
-
-        {/* Section Évaluation */}
-        <Grid container alignItems="center" spacing={2} mt={3}>
-          <Grid item>
-            <Rating
-              value={freelancer.rating}
-              precision={0.1}
-              readOnly
-              size="large"
-              emptyIcon={<StarIcon style={{ opacity: 0.55 }} fontSize="inherit" />}
-            />
-          </Grid>
-          <Grid item>
-            <Typography
-              variant="h6"
-              fontWeight="bold"
-              sx={{ fontFamily: "Arial, sans-serif" }}
-            >
-              {freelancer.rating} ({freelancer.reviews} avis)
-            </Typography>
-          </Grid>
-        </Grid>
-
-        {/* Section Statistiques */}
-        <Grid container spacing={2} mt={3}>
-          <Grid item xs={6}>
-            <Box display="flex" alignItems="center">
-              <WorkIcon color="primary" sx={{ mr: 1 }} />
-              <Typography
-                variant="h5"
-                fontWeight="bold"
-                color="textPrimary"
-                sx={{ fontFamily: "Arial, sans-serif" }}
-              >
-                {freelancer.completedMissions} missions
-              </Typography>
-            </Box>
-          </Grid>
-          <Grid item xs={6}>
-            <Box display="flex" alignItems="center">
-              <EuroIcon color="primary" sx={{ mr: 1 }} />
-              <Typography
-                variant="h5"
-                fontWeight="bold"
-                color="textPrimary"
-                sx={{ fontFamily: "Arial, sans-serif" }}
-              >
-                {freelancer.earnings}
-              </Typography>
-            </Box>
-          </Grid>
-        </Grid>
-
-        {/* Section Compétences */}
-        <Box mt={4}>
-          <Typography
-            variant="h5"
-            fontWeight="bold"
-            color="primary"
-            gutterBottom
-            sx={{ fontFamily: "Arial, sans-serif" }}
-          >
-            Compétences
-          </Typography>
-          <Grid container spacing={2}>
-            {freelancer.skills.map((skill, index) => (
-              <Grid item key={index}>
-                <Chip
-                  label={skill}
-                  color="primary"
-                  variant="outlined"
-                  sx={{ borderRadius: 2, fontWeight: "bold", fontFamily: "Arial, sans-serif" }}
-                />
-              </Grid>
-            ))}
-          </Grid>
-        </Box>
-
-        {/* Section Témoignages */}
-        <Box mt={4}>
-          <Typography
-            variant="h5"
-            fontWeight="bold"
-            color="primary"
-            gutterBottom
-            sx={{ fontFamily: "Arial, sans-serif" }}
-          >
-            Témoignages Clients
-          </Typography>
-          <Grid container spacing={2}>
-            {freelancer.testimonials.map((testimonial, index) => (
-              <Grid item key={index} xs={12} sm={6}>
-                <Box
-                  sx={{
-                    bgcolor: theme.palette.background.paper,
-                    borderRadius: 2,
-                    boxShadow: 3,
-                    p: 3,
-                    transition: "transform 0.3s, box-shadow 0.3s",
-                    "&:hover": {
-                      transform: "translateY(-5px)",
-                      boxShadow: 6,
-                    },
-                  }}
-                >
-                  <Box display="flex" alignItems="center" mb={2}>
-                    <Avatar src={testimonial.avatar} sx={{ mr: 2 }} />
-                    <Typography
-                      variant="body1"
-                      fontWeight="bold"
-                      sx={{ fontFamily: "Arial, sans-serif" }}
-                    >
-                      {testimonial.author}
-                    </Typography>
-                  </Box>
-                  <Typography
-                    variant="body1"
-                    color="textSecondary"
-                    sx={{ fontFamily: "Arial, sans-serif", lineHeight: 1.6 }}
-                  >
-                    "{testimonial.text}"
-                  </Typography>
-                </Box>
-              </Grid>
-            ))}
-          </Grid>
-        </Box>
-
-        {/* Section Travaux Réalisés */}
-        <Box mt={4}>
-          <Typography
-            variant="h5"
-            fontWeight="bold"
-            color="primary"
-            gutterBottom
-            sx={{ fontFamily: "Arial, sans-serif" }}
-          >
-            Travaux Réalisés
-          </Typography>
-          <Grid container spacing={2}>
-            {freelancer.works.map((work, index) => (
-              <Grid item key={index} xs={12} sm={6} md={4}>
-                <Box
-                  sx={{
-                    bgcolor: theme.palette.background.paper,
-                    borderRadius: 2,
-                    boxShadow: 3,
-                    overflow: "hidden",
-                    transition: "transform 0.3s, box-shadow 0.3s",
-                    "&:hover": {
-                      transform: "translateY(-5px)",
-                      boxShadow: 6,
-                    },
-                  }}
-                >
-                  <img
-                    src={work.image}
-                    alt={work.title}
-                    style={{ width: "100%", height: "auto" }}
-                  />
-                  <Box p={2}>
-                    <Typography
-                      variant="h6"
-                      fontWeight="bold"
-                      sx={{ fontFamily: "Arial, sans-serif" }}
-                    >
-                      {work.title}
-                    </Typography>
-                    <Typography
-                      variant="body2"
-                      color="textSecondary"
-                      sx={{ fontFamily: "Arial, sans-serif" }}
-                    >
-                      {work.description}
-                    </Typography>
-                  </Box>
-                </Box>
-              </Grid>
-            ))}
-          </Grid>
-        </Box>
-
-        {/* Bouton Contacter */}
-        <Box mt={4} textAlign="center">
-          <Button
-            variant="contained"
-            color="primary"
-            size="large"
-            sx={{
-              borderRadius: 50,
-              px: 4,
-              boxShadow: 3,
-              animation: `${pulseAnimation} 2s infinite`,
-              "&:hover": {
-                animation: "none",
-                transform: "scale(1.05)",
-              },
-              fontSize: "1.2rem",
-              fontWeight: "bold",
-            }}
-          >
-            Contacter Jean
-          </Button>
-        </Box>
-      </CardContent>
-    </Card>
+          </Paper>
+        ))}
+      </Box>
+    </CardContent>
+  </Card>
+</Grid>
+    </Box>
   );
 };
 
